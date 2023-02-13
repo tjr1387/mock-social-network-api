@@ -1,11 +1,27 @@
 const { Schema, model } = require('mongoose');
 
-
 // Schema for reaction subdocument (maybe make this its own file and import it?)
 const reactionSchema = new Schema(
-
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: new ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      maxLength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now, // will need a getter on this in order to format
+    },
+  },
 );
-
 
 // Schema for Thought model
 const thoughtSchema = new Schema(
