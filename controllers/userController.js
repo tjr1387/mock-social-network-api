@@ -1,6 +1,4 @@
-const { User, Application } = require('../models');
-
-// still has legacy code from exercise! 'Application' will be removed
+const { User, Thought } = require('../models');
 
 module.exports = {
   // Get all users
@@ -10,6 +8,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   // Get a single user
+    // still need to populate 'thoughts' ref here!
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select('-__v')
@@ -28,8 +27,10 @@ module.exports = {
   },
 
   //update user controller needed!
+  
 
   // Delete a user and associated thoughts
+    // this is still legacy from exercises!!
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
