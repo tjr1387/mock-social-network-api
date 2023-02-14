@@ -29,7 +29,7 @@ module.exports = {
 
   //update user controller needed!
 
-  // Delete a user and associated apps
+  // Delete a user and associated thoughts
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
