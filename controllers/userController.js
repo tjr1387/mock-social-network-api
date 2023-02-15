@@ -5,6 +5,8 @@ module.exports = {
   getUsers(req, res) {
     User.find()
       .select('-__v')
+      .populate('thoughts')
+      .populate('friends')
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
@@ -13,6 +15,8 @@ module.exports = {
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select('-__v')
+      .populate('thoughts')
+      .populate('friends')
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
