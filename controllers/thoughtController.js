@@ -9,7 +9,7 @@ module.exports = {
   },
   // Get a single thought
   getSingleThought(req, res) {
-    Thought.findOne({ _id: req.params.ThoughtId })
+    Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
       .then((thought) =>
         !thought
@@ -18,14 +18,14 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // create a new thought
+  // Create a new thought
     // need to add a 'push to assoc. user's array' bit
   createThought(req, res) {
     Thought.create(req.body)
       .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
-  // update a thought
+  // Update a thought
   updateThought(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -40,10 +40,10 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  // Delete a thought (and remove from assoc. users array)
-    // this is still legacy and needs fixing
+  // Delete a thought
+    // still needs the remove from assoc. users array bit
   deleteThought(req, res) {
-    Thought.findOneAndDelete({ _id: req.params.ThoughtId })
+    Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
