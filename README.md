@@ -32,10 +32,13 @@ Reaction DELETE: No body, with `thoughtId` in params
 Friend actions: Both done in params, it should look like this: `/api/users/:userId/friends/:friendId`  
   
 
-Screenshots (just the big GETs):
+Screenshots (just the big GETs):  
+![GET all users](./assets/mockups/getAllUsers.png?raw=true "GET all users, with populated arrays")  
+![GET all thoughts](./assets/mockups/getAllThoughts.png?raw=true "GET all thoughts with reactions included")
   
-Link to video: 
-
+Link to video: https://drive.google.com/file/d/1FhUu6AaAWHYUQGHAN-ukRrGOMdSpDKIb/view
+  
+  
 ## Credits
 
 GitHub user 'andreasonny83' for a nice boilerplate '.gitignore' file, and as always, a few of our course exercises; great examples off of which to build!
