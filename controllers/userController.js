@@ -11,7 +11,6 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   // Get a single user
-    // still need to populate 'thoughts' ref here!
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select('-__v')
@@ -53,7 +52,7 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
-          : res.json(user)
+          : res.json(user)  // this will be a 'deleteMany'  on Thoughts, matched by username
       )
       .then(() => res.json({ message: 'User deleted!' })) // this is probly why im getting that error on delete
       .catch((err) => res.status(500).json(err));
