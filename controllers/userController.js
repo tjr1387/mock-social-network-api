@@ -51,7 +51,7 @@ module.exports = {
           ? res.status(404).json({ message: 'No user with that ID' })
           : res.json(user)
       )
-      .then(() => res.json({ message: 'User deleted!' }))
+      .then(() => res.json({ message: 'User deleted!' })) // this is probly why im getting that error on delete
       .catch((err) => res.status(500).json(err));
   },
 };
