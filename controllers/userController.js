@@ -45,16 +45,15 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  // Delete a user
-    // still need to delete assoc. thoughts (bonus)
+  // Delete a user and their assoc. thoughts
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
-          : res.json(user)  // this will be a 'deleteMany'  on Thoughts, matched by username
+          : Thought.deleteMany({ _id: { $in: user.thoughts } })
       )
-      .then(() => res.json({ message: 'User deleted!' })) // this is probly why im getting that error on delete
+      .then(() => res.json({ message: 'User and associated thoughts deleted.' })) // this is probly why im getting that error on delete
       .catch((err) => res.status(500).json(err));
   },
 };

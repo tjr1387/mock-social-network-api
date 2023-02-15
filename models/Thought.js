@@ -1,5 +1,12 @@
 const { Schema, Types, model } = require('mongoose');
 
+
+//helper function for formatting date in the 'getter'
+function formatDate(date) {
+  return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}` + 
+         ` on ${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+}
+
 // Schema for reaction subdocument (maybe make this its own file and import it?)
 const reactionSchema = new Schema(
   {
@@ -18,7 +25,8 @@ const reactionSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now, // will need a getter on this in order to format
+      default: Date.now,
+      get: (date) => formatDate(date) // will need a getter on this in order to format
     },
   },
   {
@@ -28,6 +36,7 @@ const reactionSchema = new Schema(
     id: false,
   }
 );
+
 
 // Schema for Thought model
 const thoughtSchema = new Schema(
@@ -41,6 +50,7 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now, // will need a getter on this in order to format
+      get: (date) => formatDate(date)
     },
     username: {
       type: String,
@@ -52,6 +62,7 @@ const thoughtSchema = new Schema(
     // Include virtuals in response by default
     toJSON: {
       virtuals: true,
+      getters: true
     },
     id: false,
   },
