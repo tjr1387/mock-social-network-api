@@ -49,17 +49,23 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-
-  // Delete a thought
-    // still needs the remove from assoc. users array bit
+  // Delete a thought and remove it from assoc. user's array
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
-          : res.json(thought)
+          : User.findOneAndUpdate(
+            { thoughts: req.params.thoughtId },
+            { $pull: { thoughts: req.params.thoughtId } },
+            { new: true }
+          )
       )
-      .then(() => res.json({ message: 'Thought deleted and removed from user!' }))
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'Thought removed but could not find an associated user!' })
+          : res.json(user)
+      )
       .catch((err) => res.status(500).json(err));
   },
 };
