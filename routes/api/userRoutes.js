@@ -4,13 +4,13 @@ const {
   getSingleUser,
   createUser,
   updateUser,
-  // deleteUser (+ remove associated thoughts for bonus)
+  deleteUser
 } = require('../../controllers/userController');
 
 // /api/users
 router.route('/').get(getUsers).post(createUser);
 
 // /api/users/:userId
-router.route('/:userId').get(getSingleUser).put(updateUser); //.delete(deleteUser)
+router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser);
 
 module.exports = router;

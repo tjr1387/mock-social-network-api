@@ -4,6 +4,7 @@ module.exports = {
   // Get all users
   getUsers(req, res) {
     User.find()
+      .select('-__v')
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
@@ -19,14 +20,14 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // create a new user
+  // Create a new user
   createUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
 
-  //update user controller needed!
+  // Update a user
   updateUser(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -41,16 +42,16 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  // Delete a user and associated thoughts
-    // this is still legacy from exercises!!
+  // Delete a user
+    // still need to delete assoc. thoughts (bonus)
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
-          : Application.deleteMany({ _id: { $in: user.applications } })
+          : res.json(user)
       )
-      .then(() => res.json({ message: 'User and associated apps deleted!' }))
+      .then(() => res.json({ message: 'User deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
 };
