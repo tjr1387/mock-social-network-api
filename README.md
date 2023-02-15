@@ -21,7 +21,7 @@ Packages needed are just 'express' and 'mongoose', the latter which serves as a 
 
 Once the dependencies have been installed, all you have to do is run it with 'node index.js'. This should sync the MongoDB database (named socialDb in this case) and allow you to start testing out the endpoints. Both the Thought and User routes have full CRUD (including two reads: single and all). These two models are linked, and every thought is made by a user. When you 'GET' a user, their associated thoughts are populated. Also, if you delete a user, their associated thoughts will also be deleted. The 'reactions' subdoc (an array; a field of the Thought model) has a POST and DELETE route, and the 'friends' array (a field of User, referencing itself) also has POST and DELETE routes. Keep in mind, the routes are assuming that your request body (preferably done in JSON) is formatted correctly (if non-existent IDs are referenced, it will throw a 404 error). Here are the required fields to put in the req.body their respective routes:
   
-User POST/UPDATE: `username` and `email`  
+User POST/UPDATE: `username` and `email`, and `userId` in req.params for UPDATE only  
 User DELETE: No body, but `userId` in req.params  
 Thought POST: `thoughtText`, `username` and `userId`  
 Thought UPDATE: `thoughtText` in body, `thoughtId` in req.params  
